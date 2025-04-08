@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "sourceMap": false,
+        "declaration": false,
+        "declarationMap": false,
+        "noImplicitAny": false,
+        "experimentalDecorators": true,
+        "downlevelIteration": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "jsx": "react",
+        "lib": [
+            "ES2020",
+            "dom",
+        ],
+        "plugins": [],
+        "rootDir": ".",
+    },
+    "include": [
+        "**/*",
+    ],
+    "exclude": [
+        "node_modules",
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs"
+        }
+    },
+}

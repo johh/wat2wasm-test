@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>wat2wasm demo</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background-color: midnightblue;
+        color: white;
+      }
+      html,
+      body,
+      textarea,
+      button,
+      select,
+      input[type="submit"] {
+        font-family: "Monaco", monospace;
+        color: darksalmon;
+      }
+      textarea,
+      select {
+        background: none;
+        border: 1px solid currentColor;
+        border-radius: 0.5rem;
+      }
+      textarea:active,
+      textarea:focus-visible,
+      select:active,
+      select:focus-visible {
+        outline: none;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      textarea {
+        box-shadow: none;
+        padding: 2rem;
+        margin-top: 2rem;
+      }
+
+      input[type="submit"],
+      button {
+        margin-top: 2rem;
+        appearance: none;
+        display: inline-block;
+        background-color: darksalmon;
+        color: midnightblue;
+        padding: 0.4rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+      }
+
+      input[type="submit"]:hover {
+        transform: scale(1.05);
+      }
+      select {
+        padding: 0.4rem 1rem;
+        margin: 0 0.5ch 1ch;
+      }
+      output {
+        white-space: pre;
+        min-height: 4em;
+        margin-top: 2rem;
+        tab-size: 4;
+      }
+      .busy input[type="submit"] {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <label>
+        <select id="runs">
+          <option value="1">1</option>
+          <option value="1000">1k</option>
+          <option value="100000">100k</option>
+          <option value="1000000">1M</option>
+        </select>
+        runs
+      </label>
+      <label>
+        of
+        <select id="demo">
+          <option value="factorial">Factorial</option>
+        </select>
+      </label>
+      <textarea id="input" spellcheck="false" rows="17" cols="64"></textarea>
+      <input type="submit" value="Compile and run" />
+      <output></output>
+    </form>
+  </body>
+</html>
