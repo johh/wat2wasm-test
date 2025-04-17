@@ -60,7 +60,7 @@ async function setup(): Promise<void> {
 		for ( let i = 0; i < keys.length; i += 1 ) {
 			const key = keys[i];
 
-			let args = currentDemo.exports[key];
+			let runner = currentDemo.exports[key];
 			const exp = wasmInstance.exports[key];
 			const isLastKey = i === keys.length - 1;
 			const listChar = isLastKey ? '└' : '├';
@@ -73,15 +73,17 @@ async function setup(): Promise<void> {
 			// eslint-disable-next-line no-await-in-loop
 			await writeOut();
 
-			if ( !args ) {
-				log.push( `${prefixChar}  ├─ No arguments listed for export "${key}"` );
-				args = [];
+			if ( !runner ) {
+				log.push( `${prefixChar}  ├─ No runner listed for export "${key}"` );
+				runner = ( fn ) => fn();
 			}
 
 			const start = performance.now();
 
+			let previous: unknown;
+
 			for ( let j = 0; j < numRuns; j += 1 ) {
-				exp( ...args );
+				previous = runner( exp as () => unknown, previous );
 			}
 
 			log.push( `${prefixChar}  └ WASM took ${( performance.now() - start ).toFixed( 2 )}ms` );

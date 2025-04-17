@@ -1,6 +1,9 @@
+type RunnerFn<R = unknown> = ( fn: ( ...args: unknown[]) => R, previous?: R ) => R;
+
+
 const demos: Record<string, {
 	wat: string,
-	exports: Record<string, unknown[]>
+	exports: Record<string, RunnerFn>
 }> = {
 	factorial: {
 		wat: `(module
@@ -21,7 +24,9 @@ const demos: Record<string, {
 )
 `,
 		exports: {
-			fac: [128],
+			fac: ( fn ) => {
+				fn( 128 );
+			},
 		},
 	},
 };
