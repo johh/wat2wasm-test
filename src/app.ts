@@ -22,7 +22,24 @@ async function wait(): Promise<void> {
 async function setup(): Promise<void> {
 	const wabt = await wabtModule();
 
-	input.value = demos[demo.value].wat;
+	Object.keys( demos ).forEach( ( key, i ) => {
+		const option = document.createElement( 'option' );
+
+		option.value = key;
+		option.textContent = key;
+		option.selected = i === 0;
+
+		demo.appendChild( option );
+	} );
+
+	const updateInput = (): void => {
+		input.value = demos[demo.value].wat;
+	};
+
+	demo.addEventListener( 'change', updateInput );
+
+	updateInput();
+
 
 	form.addEventListener( 'submit', async ( event ) => {
 		event.preventDefault();
