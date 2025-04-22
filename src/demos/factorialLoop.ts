@@ -3,7 +3,7 @@ import type { Demo } from '../demos';
 
 const factorialLoopDemo: Demo = {
 	wat: `(module
-  (func $fac (param f64) (result f64)
+  (func $fac (export "fac") (param f64) (result f64)
     local.get 0
     f64.const 1
     f64.lt
@@ -33,6 +33,11 @@ const factorialLoopDemo: Demo = {
 )
 `,
 	exports: {
+		fac: ( fn, runCount ) => {
+			for ( let i = 0; i < runCount; i += 1 ) {
+				fn( 128 );
+			}
+		},
 		facloop: ( fn, runCount ) => {
 			fn( 128, runCount );
 		},

@@ -1,4 +1,3 @@
-import factorialDemo from './demos/factorial';
 import factorialLoopDemo from './demos/factorialLoop';
 
 
@@ -14,8 +13,7 @@ export type Demo = {
 
 
 const demos: Record<string, Demo> = {
-	factorialJS: factorialDemo,
-	factorialWASM: factorialLoopDemo,
+	factorial: factorialLoopDemo,
 };
 
 export default demos;
