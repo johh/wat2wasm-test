@@ -33,8 +33,8 @@ const factorialLoopDemo: Demo = {
 )
 `,
 	exports: {
-		facloop: ( fn ) => {
-			fn( 128, 1_000_000 );
+		facloop: ( fn, runCount ) => {
+			fn( 128, runCount );
 		},
 	},
 

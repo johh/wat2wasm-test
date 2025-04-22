@@ -95,11 +95,7 @@ async function setup(): Promise<void> {
 
 			const start = performance.now();
 
-			let previous: unknown;
-
-			for ( let j = 0; j < numRuns; j += 1 ) {
-				previous = runner( exp as () => unknown, previous );
-			}
+			runner( exp as () => unknown, numRuns );
 
 			log.push( `${prefixChar}  └ WASM took ${( performance.now() - start ).toFixed( 2 )}ms` );
 

@@ -20,8 +20,10 @@ const factorialDemo: Demo = {
 )
 `,
 	exports: {
-		fac: ( fn ) => {
-			fn( 128 );
+		fac: ( fn, runCount ) => {
+			for ( let i = 0; i < runCount; i += 1 ) {
+				fn( 128 );
+			}
 		},
 	},
 
