@@ -46,8 +46,6 @@ async function setup(): Promise<void> {
 
 		form.classList.add( 'busy' );
 
-		// const t = new TextEncoder().encode( input.value );
-
 		const currentDemo = demos[demo.value];
 		const numRuns = parseInt( runs.value, 10 );
 
@@ -108,16 +106,6 @@ async function setup(): Promise<void> {
 			// eslint-disable-next-line no-await-in-loop
 			await writeOut();
 		}
-
-
-		// Object.keys( wasmInstance.exports ).forEach( ( key ) => {
-		// 	const exp = wasmInstance.exports[key];
-
-		// 	log.push( '' );
-		// 	if ( typeof exp === 'function' ) {
-		// 		exp( 64 );
-		// 	}
-		// } );
 
 		form.classList.remove( 'busy' );
 	} );
