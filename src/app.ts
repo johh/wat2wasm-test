@@ -13,9 +13,15 @@ const output = document.querySelector( 'output' );
 
 async function wait(): Promise<void> {
 	return new Promise( ( resolve ) => {
-		requestIdleCallback( () => {
-			resolve();
-		} );
+		if ( 'requestIdleCallback' in window ) {
+			requestIdleCallback( () => {
+				resolve();
+			} );
+		} else {
+			requestAnimationFrame( () => {
+				resolve();
+			} );
+		}
 	} );
 }
 
