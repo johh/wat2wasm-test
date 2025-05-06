@@ -34,6 +34,10 @@ const config: webpack.Configuration = {
 				type: 'asset/resource',
 			},
 			{
+				test: /\.(wat)$/i,
+				type: 'asset/source',
+			},
+			{
 				test: /\.hlsl?$/,
 				loader: '@gdgt/hlsl-loader',
 				options: {

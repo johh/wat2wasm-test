@@ -7,6 +7,12 @@ declare module '*.bin' {
 	export default e;
 }
 
+declare module '*.wat' {
+	const e: string;
+
+	export default e;
+}
+
 declare module '*.hlsl' {
 	export const vertexShader: string;
 	export const fragmentShader: string;
