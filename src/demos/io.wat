@@ -73,4 +73,6 @@
     ))
     (local.get $sum)
   )
+  (func (export "js_only"))
+  (func (export "js_only_accurate"))
 )

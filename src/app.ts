@@ -127,7 +127,7 @@ async function setup(): Promise<void> {
 			const min = Math.min( ...durations );
 			const max = Math.max( ...durations );
 
-			log.push( `${prefixChar}  └ WASM took ${
+			log.push( `${prefixChar}  └ run took ${
 				avg.toFixed( 2 )
 			}ms on average` );
 
