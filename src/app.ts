@@ -55,6 +55,8 @@ async function setup(): Promise<void> {
 		const currentDemo = demos[demo.value];
 		const numRuns = parseInt( runs.value, 10 );
 
+		const compileStart = performance.now();
+
 		const m = wabt.parseWat( 'test.wast', input.value );
 
 		m.resolveNames();
@@ -62,9 +64,11 @@ async function setup(): Promise<void> {
 
 		const bin = m.toBinary( { log: true, write_debug_names: true } );
 		const wasmModule = await WebAssembly.compile( bin.buffer );
-		const wasmInstance = await WebAssembly.instantiate( wasmModule );
+		const wasmInstance = await WebAssembly.instantiate( wasmModule, currentDemo.wasmImports );
 
 		m.destroy();
+
+		const compileDuration = performance.now() - compileStart;
 
 		const log:string[] = [];
 		const writeOut = async (): Promise<void> => {
@@ -73,6 +77,7 @@ async function setup(): Promise<void> {
 		};
 
 		log.push( `Running ${demo.value} ${numRuns} times...` );
+		log.push( `│ Compiled in ${compileDuration.toFixed( 2 )}ms` );
 
 		await writeOut();
 
