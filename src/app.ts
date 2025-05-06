@@ -7,6 +7,7 @@ import demos from './demos';
 const form = document.querySelector( 'form' );
 const input = document.querySelector<HTMLTextAreaElement>( '#input' );
 const demo = document.querySelector<HTMLTextAreaElement>( '#demo' );
+const iterations = document.querySelector<HTMLTextAreaElement>( '#iterations' );
 const runs = document.querySelector<HTMLTextAreaElement>( '#runs' );
 const output = document.querySelector( 'output' );
 
@@ -53,6 +54,7 @@ async function setup(): Promise<void> {
 		form.classList.add( 'busy' );
 
 		const currentDemo = demos[demo.value];
+		const numIterations = parseInt( iterations.value, 10 );
 		const numRuns = parseInt( runs.value, 10 );
 
 		const compileStart = performance.now();
@@ -76,8 +78,9 @@ async function setup(): Promise<void> {
 			await wait();
 		};
 
-		log.push( `Running ${demo.value} ${numRuns} times...` );
+		log.push( `Running ${demo.value} with ${numIterations.toExponential()} iterations...` );
 		log.push( `│ Compiled in ${compileDuration.toFixed( 2 )}ms` );
+		log.push( '│' );
 
 		await writeOut();
 
@@ -104,11 +107,39 @@ async function setup(): Promise<void> {
 				runner = ( fn ) => fn();
 			}
 
-			const start = performance.now();
+			const durations: number[] = [];
 
-			runner( exp as () => unknown, numRuns );
+			for ( let j = 0; j < numRuns; j += 1 ) {
+				log.push( `${prefixChar}  └ WASM run ${j + 1} of ${numRuns}` );
+				// eslint-disable-next-line no-await-in-loop
+				await writeOut();
 
-			log.push( `${prefixChar}  └ WASM took ${( performance.now() - start ).toFixed( 2 )}ms` );
+				const start = performance.now();
+
+				runner( exp as () => unknown, numIterations, wasmInstance );
+
+				durations.push( performance.now() - start );
+
+				log.pop();
+			}
+
+			const avg = durations.reduce( ( a, b ) => a + b ) / durations.length;
+			const min = Math.min( ...durations );
+			const max = Math.max( ...durations );
+
+			log.push( `${prefixChar}  └ WASM took ${
+				avg.toFixed( 2 )
+			}ms on average` );
+
+			if ( numRuns > 1 ) {
+				log.push( `${prefixChar}    min ${
+					min.toFixed( 2 )
+				}ms, max ${
+					max.toFixed( 2 )
+				}ms (${numRuns} runs)` );
+			}
+
+			log.push( `${prefixChar}  ` );
 
 			// eslint-disable-next-line no-await-in-loop
 			await writeOut();
