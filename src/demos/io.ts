@@ -32,16 +32,12 @@ const ioDemo: Demo = {
 
 			mem.set( numbers );
 
-			const sum = fn( runCount );
-
-			console.log( sum );
+			fn( runCount );
 
 			return memOutput;
 		},
 		js_io: ( fn, runCount ) => {
-			const sum = fn( runCount );
-
-			console.log( sum );
+			fn( runCount );
 
 			return numbersOut;
 		},
